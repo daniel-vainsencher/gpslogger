@@ -36,8 +36,10 @@ import android.location.Location;
 import com.mendhak.gpslogger.common.Utilities;
 
 import java.io.BufferedOutputStream;
+import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileOutputStream;
+import java.io.FileWriter;
 import java.util.Locale;
 import org.json.JSONObject;
 import java.lang.String;
@@ -85,36 +87,34 @@ public class CyclePhillyLogger implements IFileLogger {
     public void Write(Location loc) throws Exception {
         if (!file.exists()) {
             file.createNewFile();
-
-            FileOutputStream writer = new FileOutputStream(file, true);
-            BufferedOutputStream output = new BufferedOutputStream(writer);
-            String header = "time,lat,lon,elevation,accuracy,bearing,speed\n";
-            output.write(header.getBytes());
-            output.flush();
-            output.close();
-
             Utilities.AddFileToMediaDatabase(file, "text/csv");
         }
 
-        FileOutputStream writer = new FileOutputStream(file, true);
-        BufferedOutputStream output = new BufferedOutputStream(writer);
+        FileWriter writer = new FileWriter(file);
+        BufferedWriter output = new BufferedWriter(writer);
+        try {
 
-        SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.US);
+            SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.US);
 
-        // Build JSON objects for each coordinate:
-        JSONObject coord = new JSONObject();
+            // Build JSON objects for each coordinate:
+            JSONObject coord = new JSONObject();
 
-        coord.put("rec", df.format(loc.getTime()));
-        coord.put("lat", loc.getLatitude());
-        coord.put("lon", loc.getLongitude());
-        coord.put("alt", loc.getAltitude());
-        coord.put("spd", loc.getSpeed());
-        coord.put("hac", loc.getAccuracy());
-        coord.put("vac", loc.getAccuracy());
+            coord.put("rec", df.format(loc.getTime()));
+            coord.put("lat", loc.getLatitude());
+            coord.put("lon", loc.getLongitude());
+            coord.put("alt", loc.getAltitude());
+            coord.put("spd", loc.getSpeed());
+            coord.put("hac", loc.getAccuracy());
+            coord.put("vac", loc.getAccuracy());
 
-        output.write(coord.toString().getBytes());
-        output.flush();
-        output.close();
+            output.write(coord.toString());
+            output.newLine();
+            output.flush();
+        }
+        finally
+        {
+            output.close();
+        }
     }
 
     @Override
