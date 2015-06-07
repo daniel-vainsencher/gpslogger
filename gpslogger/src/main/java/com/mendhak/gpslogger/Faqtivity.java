@@ -62,7 +62,7 @@ public class Faqtivity extends ActionBarActivity {
 
         settings.setCacheMode(WebSettings.LOAD_CACHE_ELSE_NETWORK);
 
-        browser.loadUrl("http://code.mendhak.com/gpslogger/index.html");
+        browser.loadUrl("https://github.com/codeforprinceton/ptonCycle/wiki/Proposed-Info-Page");
 
     }
 

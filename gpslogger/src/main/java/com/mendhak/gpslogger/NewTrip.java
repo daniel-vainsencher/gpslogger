@@ -18,16 +18,19 @@
 
 package com.mendhak.gpslogger;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.Toolbar;
-import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.Spinner;
+import android.widget.TextView;
 
 import com.mendhak.gpslogger.common.AppSettings;
 import com.mendhak.gpslogger.common.Utilities;
+import com.mendhak.gpslogger.views.GpsSimpleViewFragment;
 
 import org.slf4j.LoggerFactory;
 
@@ -37,36 +40,40 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class SavedTrips extends ActionBarActivity {
+public class NewTrip extends ActionBarActivity {
 
     WebView browser;
-    private org.slf4j.Logger tracer = LoggerFactory.getLogger(SavedTrips.class.getSimpleName());
+    private org.slf4j.Logger tracer = LoggerFactory.getLogger(NewTrip.class.getSimpleName());
     /**
      * Event raised when the form is created for the first time
      */
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.fragment_saved_trips);
+        setContentView(R.layout.fragment_new_trip);
+
+        // Fetch filename of the tracked data
+        Intent intent = getIntent();
+        String filename = intent.getStringExtra(GpsSimpleViewFragment.FILE_TO_SEND);
+
+        // Get and set TextView for the file to be sent
+        TextView textView_filename = (TextView) findViewById(R.id.newTrip_filename);
+        textView_filename.setText(filename);
+
+        // Choose Trip type
+        Spinner spinner = (Spinner) findViewById(R.id.newTrip_tripTypeSpinner);
+        // Create an ArrayAdapter using the string array and a default spinner layout
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
+                    R.array.trip_types, android.R.layout.simple_spinner_item);
+        // Specify the layout to use when the list of choices appears
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        // Apply the adapter to the spinner
+        spinner.setAdapter(adapter);
+
+        // Set up the toolbar with the Activity Name
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        final ListView listview = (ListView) findViewById(R.id.listView_saved_trips);
-        // Get the files saved
-        File gpxFolder = new File(AppSettings.getGpsLoggerFolder());
-        List<File> files = new ArrayList<File>(Arrays.asList(Utilities.GetFilesInFolder(gpxFolder, new FilenameFilter() {
-            @Override
-            public boolean accept(File file, String s) {
-                return s.contains(".cycphillyBody") && !s.contains("zip");
-            }
-        })));
-        ArrayList<String> filenames = new ArrayList<String>();
-        for (int i = 0; i < files.size(); ++i) {
-            filenames.add(files.get(i).getName());
-        }
-        final ArrayAdapter adapter = new ArrayAdapter(this,
-                android.R.layout.simple_list_item_1, filenames);
-        listview.setAdapter(adapter);
     }
 
     @Override
