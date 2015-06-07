@@ -25,6 +25,7 @@ import com.mendhak.gpslogger.senders.dropbox.DropBoxHelper;
 import com.mendhak.gpslogger.senders.email.AutoEmailHelper;
 import com.mendhak.gpslogger.senders.ftp.FtpHelper;
 import com.mendhak.gpslogger.senders.gdocs.GDocsHelper;
+import com.mendhak.gpslogger.senders.http.HttpHelper;
 import com.mendhak.gpslogger.senders.opengts.OpenGTSHelper;
 import com.mendhak.gpslogger.senders.osm.OSMHelper;
 import org.slf4j.LoggerFactory;
@@ -62,6 +63,8 @@ public class FileSenderFactory {
     public static IFileSender GetFtpSender(Context applicationContext) {
         return new FtpHelper();
     }
+
+    public static IFileSender GetHttpSender(Context applicationContext) { return new HttpHelper(); }
 
     public static void SendFiles(Context applicationContext, final String fileToSend) {
 
@@ -152,6 +155,9 @@ public class FileSenderFactory {
         if (AppSettings.isFtpAutoSendEnabled()) {
             senders.add(new FtpHelper());
         }
+
+        // TODO: for now always use HttpHelper
+        senders.add(new HttpHelper());
 
         return senders;
 

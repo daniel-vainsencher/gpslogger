@@ -18,6 +18,7 @@
 package com.mendhak.gpslogger.views;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.*;
 import android.location.Location;
 import android.os.Bundle;
@@ -32,6 +33,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 import com.dd.processbutton.iml.ActionProcessButton;
+import com.mendhak.gpslogger.NewTrip;
 import com.mendhak.gpslogger.R;
 import com.mendhak.gpslogger.common.AppSettings;
 import com.mendhak.gpslogger.common.EventBusHook;
@@ -45,7 +47,7 @@ public class GpsSimpleViewFragment extends GenericViewFragment implements View.O
 
     Context context;
     private static final org.slf4j.Logger tracer = LoggerFactory.getLogger(GpsSimpleViewFragment.class.getSimpleName());
-
+    public final static String FILE_TO_SEND = "com.mendhak.gpslogger.FILENAME";
 
     private View rootView;
     private ActionProcessButton actionButton;
@@ -305,6 +307,11 @@ public class GpsSimpleViewFragment extends GenericViewFragment implements View.O
         else {
             SetSatelliteCount(-1);
             setActionButtonStart();
+            if(Session.isTowerEnabled() || Session.isGpsEnabled()) {
+                Intent intent = new Intent(getActivity(), NewTrip.class);
+                intent.putExtra(FILE_TO_SEND,Session.getCurrentFileName()+".cycphillyBody");
+                startActivity(intent);
+            }
         }
     }
 
