@@ -159,6 +159,10 @@ public class Utilities {
 
         AppSettings.setLogToPlainText(prefs.getBoolean("log_plain_text", false));
 
+        //Todo: Should deal with preferences, not today.
+        //AppSettings.setLogToCyclePhilly(prefs.getBoolean("log_cycle_philly", false));
+        AppSettings.setLogToCyclePhilly(true);
+
         AppSettings.setLogToNmea(prefs.getBoolean("log_nmea", false));
 
         AppSettings.setLogToCustomUrl(prefs.getBoolean("log_customurl_enabled", false));

@@ -53,6 +53,11 @@ public class FileLoggerFactory {
             loggers.add(new PlainTextFileLogger(file));
         }
 
+        if (AppSettings.shouldLogToCyclePhilly()) {
+            File file = new File(gpxFolder.getPath(), Session.getCurrentFileName() + ".cycphillyBody");
+            loggers.add(new CyclePhillyLogger(file));
+        }
+
         if (AppSettings.shouldLogToOpenGTS()) {
             loggers.add(new OpenGTSLogger(context));
         }

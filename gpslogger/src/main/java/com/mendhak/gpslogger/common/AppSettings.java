@@ -59,6 +59,7 @@ public class AppSettings extends Application {
     private static boolean logToKml;
     private static boolean logToGpx;
     private static boolean logToPlainText;
+    private static boolean logToCyclePhilly;
     private static boolean logToNmea;
     private static boolean logToCustomUrl;
     private static String customLoggingUrl;
@@ -216,6 +217,13 @@ public class AppSettings extends Application {
         AppSettings.logToPlainText = logToPlainText;
     }
 
+    public static boolean shouldLogToCyclePhilly() {
+        return logToCyclePhilly;
+    }
+
+    static void setLogToCyclePhilly(boolean logToCyclePhilly) {
+        AppSettings.logToCyclePhilly = logToCyclePhilly;
+    }
 
     /**
      * @return the minimumSeconds
