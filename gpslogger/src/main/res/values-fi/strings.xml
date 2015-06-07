@@ -109,4 +109,17 @@
   <string name="faq_screen_title">Usein kysyttyjä kysymyksiä</string>
   <string name="menu_faq">Apu ja UKK</string>
   <string name="gpsf_missing">Puuttuva palvelu</string>
+  <string-array name="reporting_part1">
+    <item>Bike Rack</item>
+    <item>Road</item>
+    <item>Intersection</item>
+    <item>Other (Please specify in Commments)</item>
+  </string-array>
+  <string-array name="reporting_part2">
+    <item>Stuck</item>
+    <item>Hazardous</item>
+    <item>Missing</item>
+    <item>Nuclear Apocalypse</item>
+    <item>Other (Please specify in Commments)</item>
+  </string-array>
 </resources>
