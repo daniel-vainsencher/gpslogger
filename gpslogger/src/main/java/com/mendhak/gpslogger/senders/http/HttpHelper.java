@@ -83,7 +83,12 @@ public class HttpHelper implements IFileSender {
 
     @Override
     public boolean accept(File file, String s) {
-        return true;
+
+        if (s.contains(".cycphillyBody") ){
+            return true;
+        } else {
+            return false;
+        }
     }
 
 }

@@ -77,6 +77,7 @@ public class FileSenderFactory {
             return;
         }
 
+
         List<File> files = new ArrayList<File>(Arrays.asList(Utilities.GetFilesInFolder(gpxFolder, new FilenameFilter() {
             @Override
             public boolean accept(File file, String s) {
@@ -111,6 +112,7 @@ public class FileSenderFactory {
 
         for (IFileSender sender : senders) {
             tracer.debug("Sender: " + sender.getClass().getName());
+
             //Special case for OSM Uploader
             if(!sender.accept(null, ".zip")){
                 sender.UploadFile(files);
