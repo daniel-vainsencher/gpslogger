@@ -18,6 +18,7 @@
 package com.mendhak.gpslogger.views;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.*;
 import android.location.Location;
 import android.os.Bundle;
@@ -32,7 +33,9 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 import com.dd.processbutton.iml.ActionProcessButton;
+import com.mendhak.gpslogger.Faqtivity;
 import com.mendhak.gpslogger.R;
+import com.mendhak.gpslogger.SavedTrips;
 import com.mendhak.gpslogger.common.AppSettings;
 import com.mendhak.gpslogger.common.EventBusHook;
 import com.mendhak.gpslogger.common.Session;
@@ -305,6 +308,8 @@ public class GpsSimpleViewFragment extends GenericViewFragment implements View.O
         else {
             SetSatelliteCount(-1);
             setActionButtonStart();
+            Intent intent = new Intent(getActivity(), SavedTrips.class);
+            startActivity(intent);
         }
     }
 
