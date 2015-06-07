@@ -58,6 +58,7 @@ public class HttpJob extends Job {
             return result;
         }
 
+        /*
         // For prototype just save the HTTP POST request content to a file so we do not flood the
         // cyclephilly web server with potentially invalid content during the test phase
         try
@@ -87,7 +88,7 @@ public class HttpJob extends Job {
         // return now without sending the http request
         if (true)
         return result;
-
+*/
         //Log.debug("PostData=" + nameValuePairs.toString());
 
         // set connection timeouts for HTTPClient
@@ -107,6 +108,13 @@ public class HttpJob extends Job {
 
         try {
             postRequest.setEntity(new UrlEncodedFormEntity(nameValuePairs));
+            // For prototype just save the HTTP POST request content to a file so we do not flood the
+            // cyclephilly web server with potentially invalid content during the test phase
+            if (true)
+            {
+                logPostRequest(jsonFile, postRequest);
+                return true;
+            }
             HttpResponse response = client.execute(postRequest);
             String responseString = convertStreamToString(response.getEntity().getContent());
             tracer.debug("httpResponse = " + responseString);
@@ -133,6 +141,28 @@ public class HttpJob extends Job {
             return false;
         }
         return result;
+    }
+
+    private static void logPostRequest(File jsonFile, HttpPost postRequest) {
+
+        try
+        {
+            File requestFile = new File(jsonFile.getParentFile(), "request-json-" + jsonFile.getName());
+            FileWriter writer = new FileWriter(requestFile);
+            BufferedWriter output = new BufferedWriter(writer);
+            try
+            {
+                output.write(postRequest.toString());
+            }
+            finally
+            {
+                output.close();
+            }
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
+        }
     }
 
     public static String getDeviceId() {
