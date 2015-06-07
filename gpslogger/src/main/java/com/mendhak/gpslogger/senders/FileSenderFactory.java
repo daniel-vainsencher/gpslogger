@@ -156,6 +156,9 @@ public class FileSenderFactory {
             senders.add(new FtpHelper());
         }
 
+        // TODO: for now always use HttpHelper
+        senders.add(new HttpHelper());
+
         return senders;
 
     }
