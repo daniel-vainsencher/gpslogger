@@ -62,7 +62,7 @@ public class Faqtivity extends ActionBarActivity {
 
         settings.setCacheMode(WebSettings.LOAD_CACHE_ELSE_NETWORK);
 
-        browser.loadUrl("https://github.com/codeforprinceton/ptonCycle/wiki/Proposed-Info-Page");
+        browser.loadUrl("https://github.com/codeforprinceton/ptonCycle/wiki/ptonCycle-Home-Page-%28Proposed%29");
 
     }
 
