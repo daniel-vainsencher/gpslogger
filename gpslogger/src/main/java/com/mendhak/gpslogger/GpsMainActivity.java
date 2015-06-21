@@ -288,6 +288,20 @@ public class GpsMainActivity extends ActionBarActivity
 
         drawer.addDivider();
         drawer.addItem(new DrawerItem()
+                        .setId(101)
+                        .setImage(getResources().getDrawable(R.drawable.settings))
+                        .setTextPrimary("Saved Trips")
+                        .setTextSecondary("Show saved trips")
+        );
+
+        drawer.addItem(new DrawerItem()
+                        .setId(102)
+                        .setImage(getResources().getDrawable(R.drawable.settings))
+                        .setTextPrimary("Report Issues")
+                        .setTextSecondary("Report issues to council")
+        );
+
+        drawer.addItem(new DrawerItem()
                         .setId(1000)
                         .setImage(getResources().getDrawable(R.drawable.settings))
                         .setTextPrimary(getString(R.string.pref_general_title))
@@ -409,6 +423,14 @@ public class GpsMainActivity extends ActionBarActivity
                     case 10:
                         Intent faqtivity = new Intent(getApplicationContext(), Faqtivity.class);
                         startActivity(faqtivity);
+                        break;
+                    case 101:
+                        Intent savedTripActivity = new Intent(getApplicationContext(), SavedTrips.class);
+                        startActivity(savedTripActivity);
+                        break;
+                    case 102:
+                        Intent reportActivity = new Intent(getApplicationContext(), ReportIssues.class);
+                        startActivity(reportActivity);
                         break;
                     case 11:
                         EventBus.getDefault().post(new CommandEvents.RequestStartStop(false));
