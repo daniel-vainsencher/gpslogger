@@ -19,6 +19,7 @@
 package com.mendhak.gpslogger;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.res.Resources;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
@@ -68,6 +69,14 @@ public class ReportIssues extends ActionBarActivity {
                     Toast.makeText(getApplicationContext(), "Lon:" + Double.toString(Session.getCurrentLongitude()) +
                             "Lat:" + Double.toString(Session.getCurrentLatitude()),
                             Toast.LENGTH_LONG).show();
+                    Intent intent = new Intent(Intent.ACTION_SEND);
+                    intent.setType("text/plain");
+                    intent.putExtra(Intent.EXTRA_EMAIL, new String[] {"daniel.vainsencher@gmail.com"});
+                    intent.putExtra(Intent.EXTRA_SUBJECT, "Reporting Pothole");
+                    intent.putExtra(Intent.EXTRA_TEXT, "There is a pothole here:" +
+                            "Lon:" + Double.toString(Session.getCurrentLongitude()) +
+                            "Lat:" + Double.toString(Session.getCurrentLatitude()));
+                    startActivity(intent);
                 } else {
                     Toast.makeText(getApplicationContext(), getString(R.string.gpsprovider_unavailable),
                             Toast.LENGTH_LONG).show();
