@@ -147,6 +147,8 @@ dependencies {
     //Android lollipop/material features including the Toolbar
     compile "com.android.support:appcompat-v7:22.1.1"
 
+    // Volley common requests
+    compile 'com.mcxiaoke.volley:library-aar:1.0.0'
     //Cardviews
     compile "com.android.support:cardview-v7:21.0.0"
 

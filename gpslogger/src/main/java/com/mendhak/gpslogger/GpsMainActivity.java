@@ -17,7 +17,6 @@
 
 package com.mendhak.gpslogger;
 
-
 import android.app.Fragment;
 import android.app.FragmentTransaction;
 import android.content.ComponentName;
@@ -40,6 +39,8 @@ import android.util.DisplayMetrics;
 import android.view.*;
 import android.widget.*;
 import com.afollestad.materialdialogs.MaterialDialog;
+import com.android.volley.RequestQueue;
+import com.android.volley.toolbox.Volley;
 import com.heinrichreimersoftware.materialdrawer.DrawerView;
 import com.heinrichreimersoftware.materialdrawer.structure.DrawerItem;
 import com.mendhak.gpslogger.common.*;
@@ -66,6 +67,7 @@ public class GpsMainActivity extends ActionBarActivity
         Toolbar.OnMenuItemClickListener,
         ActionBar.OnNavigationListener {
 
+    private RequestQueue queue;
     private static Intent serviceIntent;
     private ActionBarDrawerToggle drawerToggle;
     private org.slf4j.Logger tracer;
@@ -73,9 +75,9 @@ public class GpsMainActivity extends ActionBarActivity
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         Utilities.ConfigureLogbackDirectly(getApplicationContext());
         tracer = LoggerFactory.getLogger(GpsMainActivity.class.getSimpleName());
+        queue = Volley.newRequestQueue(this);
 
         loadPresetProperties();
 
@@ -104,6 +106,7 @@ public class GpsMainActivity extends ActionBarActivity
     @Override
     protected void onStart() {
         super.onStart();
+        SeeClickFixReport.testSeeClickFix(queue);
         StartAndBindService();
     }
 
